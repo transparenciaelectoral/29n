@@ -98,3 +98,7 @@ footer { border-top: 1px solid var(--line); color: var(--muted); }
 
 .evidence-note { margin-bottom: 1rem; padding: .75rem .85rem; border-left: 3px solid var(--accent); background: #fff; }
 .evidence-note p { margin: .25rem 0 0; }
+
+.ballot-box { margin-block: 1rem; padding: .85rem 1rem; border-left: 3px solid var(--accent); background: var(--paper); }
+.ballot-link { display: inline-block; font-weight: 750; }
+.ballot-box p { margin: .35rem 0 0; }

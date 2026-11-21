@@ -20,7 +20,9 @@ const ballotDistricts = new Set([
   'Teruel', 'Toledo', 'Valencia', 'Valladolid', 'Zamora', 'Zaragoza',
 ]);
 const ballotSlugs = {Álava: 'arabanalava', Alicante: 'alacantnalicante',
-  Castellón: 'castelloncastellon', Valencia: 'valencianvalencia'};
+  Castellón: 'castelloncastellon', Valencia: 'valencianvalencia',
+  'Illes Balears': 'mallorca', 'Las Palmas': 'grancanaria', 'Santa Cruz De Tenerife': 'tenerife'};
+const ballotBase = 'https://29neleccionesgenerales.es/papeletas-descargables/';
 const evidenceRule = 'Un campo pendiente indica que aún falta una fuente pública verificable para ese dato. Los campos pendientes quedan fuera de las comparaciones. El cero se reserva para cifras que la fuente confirma.';
 const unknown = '<span class="muted">No disponible en esta ficha</span>';
 const cite = (label, url) => '<a class="cite" href="' + esc(url) + '">' + esc(label) + '</a>';
@@ -87,20 +89,27 @@ function candidateList(party, list, group, expanded) {
 function showParty(party, district, expanded) {
   const lists = sortedLists(party);
   const list = lists.find(item => item.district === district) ?? lists.find(item => item.district === 'Madrid') ?? lists[0];
-  const ballotBase = 'https://29neleccionesgenerales.es/papeletas-descargables/';
-  const ballotUrl = ballotDistricts.has(list.district) ?
-    ballotBase + (ballotSlugs[list.district] ?? normalize(list.district).replaceAll(' ', '')) : ballotBase;
+  const ballotSlug = ballotSlugs[list.district] ??
+    (ballotDistricts.has(list.district) ? normalize(list.district).replaceAll(' ', '') : '');
+  const ballotUrl = list.district === 'Madrid' ?
+    'https://29neleccionesgenerales.es/pdf/papeletas-descargables-cera/congreso/madrid-congreso.pdf' :
+    ballotBase + ballotSlug;
   byId('detalle').innerHTML = '<a href="#inicio">Todas las formaciones</a><div class="party-identity detail-identity">' +
     partyLogo(party) + '<h1>' + esc(party.id) + '</h1></div><p>' + esc(party.name) +
     '</p><div class="columns"><section class="panel"><h2>Datos de la formación</h2>' + partyFields(party, true) +
     '<a class="cite" href="' + formatRoute('contacto', party.id) + '">Proponer una corrección</a></section><section class="panel" aria-labelledby="list-title"><h2 id="list-title">Lista proclamada</h2>' +
     '<label for="lista">Circunscripción</label><select id="lista">' + lists.map(item =>
     '<option' + (item === list ? ' selected' : '') + '>' + esc(item.district) + '</option>').join('') +
-    '</select><p class="muted">' + esc(list.heading) + '</p><h3>Titulares (' + list.names.length + ')</h3>' +
+    '</select><p class="muted">' + esc(list.heading) + '</p>' +
+    '<aside class="ballot-box" aria-label="Papeleta oficial">' +
+    '<a class="ballot-link" href="' + esc(ballotUrl) + '">Ver papeletas oficiales · ' + esc(list.district) + '</a>' +
+    '<p>Busca <strong>' + esc(list.heading) + '</strong> en el documento del Congreso. El juego oficial reúne las papeletas de la circunscripción.</p>' +
+    '<p class="muted">Para verificar la lista. Las papeletas descargables se destinan al voto de residentes permanentes en el extranjero (CERA).</p></aside>' +
+    '<h3>Titulares (' + list.names.length + ')</h3>' +
     candidateList(party, list, 'names', expanded) +
     (list.reserves.length ? '<details class="reserves"' + (expanded?.group === 'reserves' ? ' open' : '') +
       '><summary>Suplentes (' + list.reserves.length + ')</summary>' + candidateList(party, list, 'reserves', expanded) +
-      '</details>' : '') + '<p>' + source('boe') + ' · ' + source('correccion') + ' · ' + cite('Papeletas oficiales (CERA)', ballotUrl) + '</p></section></div>';
+      '</details>' : '') + '<p>' + source('boe') + ' · ' + source('correccion') + '</p></section></div>';
   byId('lista').addEventListener('change', event => {
     location.hash = formatRoute('formacion', party.id, event.target.value);
   });
