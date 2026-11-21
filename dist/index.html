@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Consulta las candidaturas proclamadas al Congreso en España para el 29N de 2026 y sus fuentes.">
+  <title>29N · Transparencia electoral</title>
+  <link rel="stylesheet" href="estilo.css">
+  <script defer src="candidaturas.js"></script>
+  <script defer src="fichas.js"></script>
+  <script defer src="perfiles-publicos.js"></script>
+  <script defer src="declaraciones-publicas.js"></script>
+  <script defer src="formaciones-extra.js"></script>
+  <script defer src="trayectorias.js"></script>
+  <script defer src="candidaturas-previas.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <header class="top"><div class="wrap bar">
+    <a class="brand" href="#inicio"><span>29N</span> Transparencia electoral</a>
+    <nav aria-label="Principal"><a href="#inicio">Formaciones</a><a href="#fuentes">Fuentes</a><a href="#contacto">Contacto</a></nav>
+  </div></header>
+  <main id="contenido" tabindex="-1">
+    <section id="inicio">
+      <div class="hero"><div class="wrap hero-inner">
+        <div>
+          <p class="eyebrow">España · Elecciones generales · 29 nov 2026</p>
+          <h1>Quién se presenta<br> al Congreso</h1>
+          <p class="intro">Explora las listas proclamadas por circunscripción y consulta las fuentes sobre trayectoria, afiliación y patrimonio.</p>
+        </div>
+        <div class="stats" id="estadisticas" aria-label="Resumen del catálogo"></div>
+      </div></div>
+      <section class="wrap directory" aria-labelledby="titulo-formaciones">
+        <h2 id="titulo-formaciones">Formaciones electorales</h2>
+        <div class="filters">
+          <div><label for="buscar">Nombre o siglas</label><input id="buscar" type="search" placeholder="Buscar una formación"></div>
+          <div><label for="territorio">Circunscripción</label><select id="territorio"></select></div>
+        </div>
+        <p id="resultados" class="muted" role="status"></p>
+        <div id="tarjetas" class="grid"></div>
+      </section>
+    </section>
+    <section id="detalle" class="wrap detail" hidden></section>
+    <section id="fuentes" class="wrap sources" hidden></section>
+    <section id="contacto" class="wrap sources" hidden>
+      <h1>Contacto</h1>
+      <div class="panel contact-panel">
+        <p>Si encuentras un error o tienes una fuente pública que completa una ficha, prepara una propuesta de corrección. Revisaremos la fuente y actualizaremos la ficha cuando podamos verificar el dato.</p>
+        <p id="correccion-github-nota" hidden>El issue y tu nombre de usuario de GitHub serán públicos. Incluye solo el dato que quieres corregir y fuentes públicas.</p>
+        <p id="correccion-local-nota">La creación de propuestas estará disponible cuando se publique el sitio en GitHub Pages.</p>
+        <form id="correccion-form">
+          <label for="correccion-ficha">Formación o candidatura</label>
+          <input id="correccion-ficha" name="ficha" maxlength="240" required>
+          <label for="correccion-dato">Dato que quieres añadir o corregir</label>
+          <textarea id="correccion-dato" name="dato" rows="4" maxlength="3000" required></textarea>
+          <label for="correccion-fuente">Enlace público de la fuente</label>
+          <input id="correccion-fuente" name="fuente" type="url" placeholder="https://…" required>
+          <button id="correccion-github" type="submit" disabled>Crear propuesta de corrección</button>
+          <p id="correccion-estado" role="status"></p>
+        </form>
+      </div>
+    </section>
+    <noscript>Activa JavaScript para navegar por las listas oficiales.</noscript>
+  </main>
+  <footer><div class="wrap bar"><span>29N · Transparencia electoral</span><nav aria-label="Pie de página"><a href="#fuentes">Fuentes y metodología</a><a href="#contacto">Contacto</a></nav></div></footer>
+</body>
+</html>
