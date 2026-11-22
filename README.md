@@ -20,11 +20,15 @@ Los programas se consultan desde las tarjetas y el apartado «Qué propone» de 
 
 La pestaña «Análisis» vuelve a calcular los recuentos desde los datos locales cada vez que se abre o cambia el filtro. Para incorporar una corrección, revisa la ficha y, cuando proceda, su clasificación en `dist/trabajos.js`, `dist/fundadores.js` o `dist/analisis.js`. Las reglas se mantienen en [análisis de trayectorias](.agents/skills/analizar-trayectorias-electorales/SKILL.md) y [orientación electoral](.agents/skills/documentar-orientacion-electoral/SKILL.md). Las copias públicas están en `dist/metodologia/`.
 
+La [verificación de experiencia laboral](.agents/skills/verificar-evidencia-de-trayectorias/SKILL.md) usa `dist/evidencias-trayectorias.js`. Cada afirmación conserva sus fuentes y el recuento usa todas las candidaturas del filtro.
+
 ## Mantener el comparador de propuestas
 
 Cada medida de `dist/propuestas.js` enlaza a una publicación de la formación y señala la página o el apartado. El comparador cruza las medidas con el catálogo electoral cada vez que se abre un tema. La [guía de análisis de programas](.agents/skills/analizar-programas-electorales/SKILL.md) explica cómo añadir medidas y revisar la cobertura. Su copia pública se sirve en `dist/metodologia/analizar-programas-electorales/SKILL.md`.
 
 Para ampliar cada medida con competencia, coste, financiación y plazo, consulta la [guía de verificación de ejecución](.agents/skills/verificar-ejecucion-de-propuestas/SKILL.md).
+
+La pestaña «Cumplimiento» usa `dist/seguimiento.js`. La [metodología de seguimiento](.agents/skills/seguir-compromisos-electorales/SKILL.md) explica cómo fijar un bloque del programa y vincular cada promesa cumplida a un resultado del mandato correspondiente. La cronología laboral se documenta por separado en `dist/cronologia-trayectorias.js`.
 
 ## Revisar Imputaciones
 

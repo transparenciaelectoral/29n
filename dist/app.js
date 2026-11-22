@@ -148,7 +148,8 @@ function candidateList(party, list, group, expanded) {
     const record = perfilesPublicos[key] ?? {};
     const open = expanded?.group === group && expanded.position === index + 1;
     return '<li><details class="candidate"' + (open ? ' open' : '') + '><summary>' + esc(name) +
-      '</summary>' + profileFields(data, record, declaracionesPublicas[key], name + ' · ' + party.id + ' · ' + list.district) + '</details></li>';
+      '</summary>' + profileFields(data, record, declaracionesPublicas[key], name + ' · ' + party.id + ' · ' + list.district,
+        evidenciasTrayectorias29N[key], cronologiaTrayectorias29N[key]) + '</details></li>';
   }).join('') + '</ol>';
 }
 
@@ -221,7 +222,7 @@ function governmentAssets(declaration, separateProperty) {
     cite('BOE · Publicación de ' + edition, source);
 }
 
-function profileFields(data, record, declaration, identity) {
+function profileFields(data, record, declaration, identity, evidence = [], chronologyEvidence) {
   const officialProfile = record.source ? cite('Ficha oficial del Congreso · XV Legislatura', record.source) : '';
   const birth = data.nacimiento;
   const birthLabel = data.nacimiento ? 'Nacimiento y edad el 29N' : 'Año de nacimiento';
@@ -246,7 +247,7 @@ function profileFields(data, record, declaration, identity) {
     cvField('Estudios', data.estudios, record.education?.length ? chronology(record.education) + officialProfile : '') +
     '</dl></section><section><h4>Trayectoria profesional</h4><dl>' +
     field('Experiencia laboral fuera de la política', data.experiencia) + field('Empresas fundadas o gestionadas', data.empresas) +
-    mercantile + '</dl></section><section><h4>Trayectoria política</h4><dl>' +
+    mercantile + (evidence.length ? cvField('Evidencia de la trayectoria laboral', null, careerClaims(evidence, chronologyEvidence)) : '') + '</dl></section><section><h4>Trayectoria política</h4><dl>' +
     field('Antigüedad en el partido', data.afiliacion) +
     cvField('Cargos públicos y de partido', data.cargos, offices.length ? chronology(offices) + officialProfile : '') +
     (data.trayectoriaElectoral ? field('Candidaturas anteriores', data.trayectoriaElectoral) : '') + '</dl></section><section><h4>Patrimonio declarado</h4><dl>' +
@@ -258,7 +259,7 @@ function profileFields(data, record, declaration, identity) {
 }
 
 function showSources() {
-  byId('fuentes').innerHTML = '<h1>Fuentes y metodología</h1><div class="panel"><h3>Metodologías reproducibles</h3><ul><li><a href="metodologia/importar-candidaturas-electorales/SKILL.md">Candidaturas y papeletas</a></li><li><a href="metodologia/verificar-datos-de-formaciones/SKILL.md">Datos de las formaciones</a></li><li><a href="metodologia/verificar-logotipos-electorales/SKILL.md">Logotipos</a></li><li><a href="metodologia/actualizar-fichas-candidatos/SKILL.md">Currículos y declaraciones</a></li><li><a href="metodologia/revisar-correcciones-electorales/SKILL.md">Correcciones</a></li><li><a href="#analisis">Trayectorias y orientación</a></li><li><a href="#propuestas">Programas electorales</a></li><li><a href="#imputaciones">Procesos judiciales</a></li></ul><h3>Qué incluye el catálogo</h3>' +
+  byId('fuentes').innerHTML = '<h1>Fuentes y metodología</h1><div class="panel"><h3>Metodologías reproducibles</h3><ul><li><a href="metodologia/importar-candidaturas-electorales/SKILL.md">Candidaturas y papeletas</a></li><li><a href="metodologia/verificar-datos-de-formaciones/SKILL.md">Datos de las formaciones</a></li><li><a href="metodologia/verificar-logotipos-electorales/SKILL.md">Logotipos</a></li><li><a href="metodologia/actualizar-fichas-candidatos/SKILL.md">Currículos y declaraciones</a></li><li><a href="metodologia/revisar-correcciones-electorales/SKILL.md">Correcciones</a></li><li><a href="#analisis">Trayectorias y orientación</a></li><li><a href="#propuestas">Programas electorales</a></li><li><a href="#cumplimiento">Cumplimiento electoral histórico</a></li><li><a href="#imputaciones">Procesos judiciales</a></li></ul><h3>Qué incluye el catálogo</h3>' +
     '<p>Elecciones generales de España del 29 de noviembre de 2026. El catálogo incluye las listas al Congreso con titulares proclamados en el BOE, incorpora la corrección del 7 de noviembre y mantiene el orden de cada lista. El BOE enlazado también contiene las listas al Senado.</p>' +
     '<p>El total de fichas resulta de agrupar siglas y variantes territoriales, como las del PSOE. Las coaliciones se conservan como fichas propias y cada lista muestra su denominación publicada. El BOE ofrece listas por circunscripción; el recuento de formaciones depende del criterio de agrupación.</p>' +
     '<h3>Cómo leer cada ficha</h3><p>El balance de las formaciones políticas publica el patrimonio neto, es decir, la diferencia contable entre activos y pasivos. El plan contable específico de los partidos utiliza esta partida para reflejar su situación patrimonial. Cada cifra lleva el ejercicio de referencia. Las fichas emplean los logotipos disponibles para identificar a la formación. La afiliación incluye la fecha y, cuando consta, el criterio del censo. Los importes personales son partidas de declaraciones fechadas y se muestran bajo su concepto declarado.</p>' +
@@ -283,6 +284,7 @@ function render(moveFocus = false) {
   let parts;
   try { parts = location.hash.slice(1).split('/').map(decodeURIComponent); }
   catch { parts = []; }
+  if (parts[0] === 'propuestas' && parts[1] === 'seguimiento') parts = ['cumplimiento'];
   const [page, id, district, group, index] = parts;
   const party = candidaturas.find(item => item.id === id);
   const list = party?.lists.find(item => item.district === district);
@@ -295,19 +297,22 @@ function render(moveFocus = false) {
   byId('fuentes').hidden = page !== 'fuentes';
   byId('analisis').hidden = page !== 'analisis';
   byId('propuestas').hidden = page !== 'propuestas';
+  byId('cumplimiento').hidden = page !== 'cumplimiento';
   byId('imputaciones').hidden = page !== 'imputaciones';
-  for (const navPage of ['analisis', 'propuestas', 'imputaciones']) {
+  for (const navPage of ['analisis', 'propuestas', 'cumplimiento', 'imputaciones']) {
     const link = byId('nav-' + navPage);
     if (page === navPage) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   }
   byId('contacto').hidden = page !== 'contacto';
-  byId('inicio').hidden = Boolean(showDetail) || page === 'fuentes' || page === 'contacto' || page === 'analisis' || page === 'propuestas' || page === 'imputaciones';
+  byId('inicio').hidden = Boolean(showDetail) ||
+    ['fuentes', 'contacto', 'analisis', 'propuestas', 'cumplimiento', 'imputaciones'].includes(page);
   if (page === 'contacto') byId('correccion-ficha').value = id ?? '';
   if (showDetail) showParty(party, district, validProfile ? {group, position} : undefined);
   else if (page === 'fuentes') showSources();
   else if (page === 'analisis') showAnalysis();
   else if (page === 'propuestas') showProposals(id, district);
+  else if (page === 'cumplimiento') showFulfillment(id);
   else if (page === 'imputaciones') showJudicial(id, district);
   if (focusProposalTopic) {
     byId('propuestas-tema').focus();

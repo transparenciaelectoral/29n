@@ -76,7 +76,8 @@ function analyseCandidates(parties) {
       return {
         name, party: party.id, district: list.district, group,
         route: formatRoute('perfil', party.id, list.district, group, index + 1),
-        study: studyProfile(data, record), work, companies: fundadores29N[key] ?? [],
+        study: studyProfile(data, record), work, evidence: evidenciasTrayectorias29N[key] ?? [],
+        chronologyEvidence: cronologiaTrayectorias29N[key], companies: fundadores29N[key] ?? [],
       };
     })
   )));
@@ -129,8 +130,9 @@ function analysisEvidence(title, rows) {
 function showCandidateAnalysis() {
   const party = byId('analisis-formacion').value;
   const group = byId('analisis-lista').value;
+  const district = byId('analisis-circunscripcion').value;
   const rows = analyseCandidates(candidaturas.filter(item => !party || item.id === party))
-    .filter(item => !group || item.group === group).sort((a, b) => collator.compare(a.name, b.name));
+    .filter(item => (!group || item.group === group) && (!district || item.district === district)).sort((a, b) => collator.compare(a.name, b.name));
   const total = rows.length;
   const studies = rows.filter(item => item.study.areas.length);
   const work = rows.filter(item => item.work);
@@ -146,6 +148,7 @@ function showCandidateAnalysis() {
     ? ' Entre ' + subject + ', la categoría más frecuente es «' + counts[0][0] + '» (' + count(counts[0][1]) + ').' : '';
 
   byId('analisis-estado').textContent = count(total) + (total === 1 ? ' candidatura en la selección' : ' candidaturas en la selección');
+  showCareerEvidence(rows);
   byId('analisis-resultados').innerHTML =
     '<section class="analysis-findings panel"><h2>Qué muestran los datos</h2><p>Se pueden clasificar los estudios de ' +
     esc(coverage(studies.length)) + ' y la experiencia laboral de ' + esc(coverage(work.length)) + '.' +
@@ -207,6 +210,10 @@ function showAnalysis() {
       .map(party => '<option value="' + esc(party.id) + '">' + esc(party.id + ' · ' + party.name) + '</option>').join('');
     select.addEventListener('change', showCandidateAnalysis);
     byId('analisis-lista').addEventListener('change', showCandidateAnalysis);
+    const district = byId('analisis-circunscripcion');
+    district.innerHTML = '<option value="">Todas las circunscripciones</option>' + districts.map(name =>
+      '<option value="' + esc(name) + '">' + esc(name) + '</option>').join('');
+    district.addEventListener('change', showCandidateAnalysis);
   }
   showCandidateAnalysis();
   showOrientationAnalysis();

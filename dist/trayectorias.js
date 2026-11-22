@@ -316,7 +316,7 @@ Object.assign(trayectorias, {
     cargos: ['Presidenta de ERC en las Illes Balears y Pitiüses. Fue concejala y teniente de alcalde en Manacor hasta su renuncia en 2026.', 'gomilaERC', null, 'gomilaManacor'],
   },
   'CHA-IU-MS-FRENTE AMPLIO|Huesca|José Luis Parra Pascau (CHA)': {
-    experiencia: ['Docente en el Colegio Rural Agrupado Vero Alcanadre, donde consta como coordinador bilingüe.', 'parraEscuela', 'curso 2025–2026'],
+    experiencia: ['Docente en el Colegio Rural Agrupado Vero Alcanadre, donde consta como especialista en Pedagogía Terapéutica y coordinador de tercer ciclo.', 'parraEscuela', 'curso 2025–2026'],
     afiliacion: ['Elegido presidente comarcal de CHA en Somontano en 2023.', 'parraCHA'],
     cargos: ['Presidente de la agrupación comarcal de CHA en Somontano según la elección de 2023.', 'parraCHA'],
   },
