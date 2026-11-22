@@ -1,4 +1,4 @@
-# 29N · Transparencia electoral
+# 29N · Quién se presenta
 
 Abre `dist/index.html` en el navegador. La web es estática y funciona sin instalación. Los enlaces a las fuentes requieren conexión.
 
@@ -7,6 +7,10 @@ Abre `dist/index.html` en el navegador. La web es estática y funciona sin insta
 Elecciones generales de España del 29 de noviembre de 2026. El catálogo cubre el Congreso, con 534 listas proclamadas en 52 circunscripciones y 56 fichas agrupadas. La cifra de fichas depende de las equivalencias que usa el catálogo. En cada lista se conserva el rótulo oficial de su circunscripción. Se distingue entre titulares y suplentes.
 
 Pulsa el nombre de un titular o suplente para consultar su perfil dentro de la lista. Los logotipos locales se acreditan en «Fuentes y metodología». La cobertura de investigación biográfica y económica es inicial. Cualquier campo sin evidencia verificada se etiqueta como «No disponible en esta ficha». Para incorporar hechos, añade su fuente directa en `dist/fichas.js`. Incluye ejercicio, ámbito o fecha de referencia cuando corresponda. La clave de perfil incluye formación, circunscripción y nombre completo.
+
+## Programas electorales
+
+Los programas se consultan desde las tarjetas y el apartado «Qué propone» de cada ficha. Para añadir uno en `dist/programas.js`, verifica en la web de la formación que el documento corresponde al 29N y a la candidatura concreta. Usa el enlace directo, indica el formato y el idioma cuando ayuden a la lectura y marca con `commitments: true` una publicación de compromisos parciales. Las fichas sin fuente muestran «Programa del 29N pendiente de verificar».
 
 ## Actualizar el catálogo electoral
 

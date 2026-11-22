@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Consulta las candidaturas proclamadas al Congreso en España para el 29N de 2026 y sus fuentes.">
-  <title>29N · Transparencia electoral</title>
+  <meta name="description" content="Consulta las candidaturas proclamadas y los programas electorales del 29N de 2026.">
+  <meta name="theme-color" content="#173d38">
+  <title>29N · Quién se presenta</title>
   <link rel="stylesheet" href="estilo.css">
   <script defer src="candidaturas.js"></script>
   <script defer src="fichas.js"></script>
@@ -13,13 +14,14 @@
   <script defer src="formaciones-extra.js"></script>
   <script defer src="trayectorias.js"></script>
   <script defer src="candidaturas-previas.js"></script>
+  <script defer src="programas.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
   <header class="top"><div class="wrap bar">
-    <a class="brand" href="#inicio"><span>29N</span> Transparencia electoral</a>
-    <nav aria-label="Principal"><a href="#inicio">Formaciones</a><a href="#fuentes">Fuentes</a><a href="#contacto">Contacto</a></nav>
+    <a class="brand" href="#inicio"><span>29N</span> Quién se presenta</a>
+    <nav aria-label="Principal"><a href="#inicio">Formaciones</a><a href="#fuentes">Fuentes</a><a href="#contacto">Hacer corrección</a></nav>
   </div></header>
   <main id="contenido" tabindex="-1">
     <section id="inicio">
@@ -27,16 +29,31 @@
         <div>
           <p class="eyebrow">España · Elecciones generales · 29 nov 2026</p>
           <h1>Quién se presenta<br> al Congreso</h1>
-          <p class="intro">Explora las listas proclamadas por circunscripción y consulta las fuentes sobre trayectoria, afiliación y patrimonio.</p>
+          <p class="intro">Consulta los programas electorales, las listas proclamadas y la trayectoria de sus candidatos.</p>
         </div>
-        <div class="stats" id="estadisticas" aria-label="Resumen del catálogo"></div>
+        <div>
+          <div class="stats" id="estadisticas" aria-label="Resumen del catálogo"></div>
+          <p class="stats-note">Una formación puede presentar una lista al Congreso en cada circunscripción donde concurre.</p>
+        </div>
       </div></div>
       <section class="wrap directory" aria-labelledby="titulo-formaciones">
         <h2 id="titulo-formaciones">Formaciones electorales</h2>
+        <p class="neutrality">Esta web es independiente y neutral. Reunimos datos comprobados con fuentes públicas y aplicamos el mismo criterio de verificación a todas las formaciones. No favorecemos a ninguna candidatura ni recomendamos el voto.</p>
         <div class="filters">
           <div><label for="buscar">Nombre o siglas</label><input id="buscar" type="search" placeholder="Buscar una formación"></div>
           <div><label for="territorio">Circunscripción</label><select id="territorio"></select></div>
+          <div><label for="orden">Ordenar por</label>
+            <select id="orden">
+              <option value="name:asc">Nombre · A a Z</option>
+              <option value="name:desc">Nombre · Z a A</option>
+              <option value="afiliacion:asc">Afiliación · menor a mayor</option>
+              <option value="afiliacion:desc">Afiliación · mayor a menor</option>
+              <option value="capital:asc">Capital social · menor a mayor</option>
+              <option value="capital:desc">Capital social · mayor a menor</option>
+            </select>
+          </div>
         </div>
+        <p id="nota-orden" class="muted" hidden></p>
         <p id="resultados" class="muted" role="status"></p>
         <div id="tarjetas" class="grid"></div>
       </section>
@@ -44,7 +61,7 @@
     <section id="detalle" class="wrap detail" hidden></section>
     <section id="fuentes" class="wrap sources" hidden></section>
     <section id="contacto" class="wrap sources" hidden>
-      <h1>Contacto</h1>
+      <h1>Hacer corrección</h1>
       <div class="panel contact-panel">
         <p>Si encuentras un error o tienes una fuente pública que completa una ficha, prepara una propuesta de corrección. Revisaremos la fuente y actualizaremos la ficha cuando podamos verificar el dato.</p>
         <p id="correccion-github-nota" hidden>El issue y tu nombre de usuario de GitHub serán públicos. Incluye solo el dato que quieres corregir y fuentes públicas.</p>
@@ -63,6 +80,6 @@
     </section>
     <noscript>Activa JavaScript para navegar por las listas oficiales.</noscript>
   </main>
-  <footer><div class="wrap bar"><span>29N · Transparencia electoral</span><nav aria-label="Pie de página"><a href="#fuentes">Fuentes y metodología</a><a href="#contacto">Contacto</a></nav></div></footer>
+  <footer><div class="wrap bar"><span>29N · Quién se presenta</span><nav aria-label="Pie de página"><a href="#fuentes">Fuentes y metodología</a><a href="#contacto">Hacer corrección</a></nav></div></footer>
 </body>
 </html>

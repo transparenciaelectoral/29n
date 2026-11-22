@@ -37,8 +37,10 @@ const field = (label, entry, format = String, citations = true) => {
   return '<div><dt>' + esc(label) + '</dt><dd>' + labelText + links + '</dd></div>';
 };
 
+const partyData = party => ({...datosFormaciones[party.id], ...formacionesExtra[party.id]});
+
 function partyFields(party, citations) {
-  const data = {...datosFormaciones[party.id], ...formacionesExtra[party.id]};
+  const data = partyData(party);
   return '<dl>' +
     (data.constitucion ? field('Constitución de la coalición', data.constitucion, String, citations) :
       field('Fundación', data.fundacion, String, citations)) +
@@ -58,20 +60,57 @@ function partyLogo(party) {
     '" alt="" width="70" height="44" loading="lazy">' : '';
 }
 
+function programLink(party, compact = false) {
+  const program = programas29N[party.id];
+  if (!program) return '';
+  const shortLabel = program.commitments ? 'Ver compromisos' : 'Ver programa';
+  const label = compact ? shortLabel : program.title ?? 'Leer el programa electoral';
+  return '<a class="action action-secondary" href="' + esc(program.url) + '" aria-label="' +
+    esc(label + ' · ' + party.id + (program.format ? ' · ' + program.format : '')) + '">' + esc(label) +
+    (!compact && program.format ? ' · ' + esc(program.format) : '') + '</a>';
+}
+
+function programPanel(party) {
+  const program = programas29N[party.id];
+  const description = !program ? 'Programa del 29N pendiente de verificar.' : program.commitments ?
+    'Compromisos publicados por la coalición. Programa completo pendiente de verificar.' :
+    'Programa para las elecciones del 29N publicado por la formación.';
+  return '<section class="panel program-panel" aria-labelledby="programa-titulo"><div>' +
+    '<h2 id="programa-titulo">Qué propone</h2><p>' + description + '</p></div>' + programLink(party) + '</section>';
+}
+
 function cards() {
   const query = normalize(byId('buscar').value.trim());
   const district = byId('territorio').value;
   const matching = candidaturas.filter(party => {
     const searchable = [party.id, party.name, ...party.lists.map(list => list.heading)].join(' ');
     return normalize(searchable).includes(query) && (!district || party.lists.some(list => list.district === district));
-  }).sort((a, b) => b.lists.length - a.lists.length || collator.compare(a.id, b.id));
+  });
+  const [key, direction] = (byId('orden').value || 'name:asc').split(':');
+  const sign = direction === 'desc' ? -1 : 1;
+  const byName = (a, b) => collator.compare(a.name, b.name) || collator.compare(a.id, b.id);
+  matching.sort((a, b) => {
+    if (key === 'name') return sign * byName(a, b);
+    const left = partyData(a)[key]?.[0];
+    const right = partyData(b)[key]?.[0];
+    if (left == null || right == null) {
+      return Number(left == null) - Number(right == null) || byName(a, b);
+    }
+    return sign * (left - right) || byName(a, b);
+  });
+  const sortNote = byId('nota-orden');
+  sortNote.hidden = key === 'name';
+  sortNote.textContent = key === 'capital'
+    ? 'Orden por capital y fondo social declarado. Las fichas sin cifra quedan al final.'
+    : 'Orden por la cifra de afiliación publicada para el año que indica cada ficha. Las fichas sin cifra quedan al final.';
   byId('resultados').textContent = matching.length + (matching.length === 1 ? ' formación' : ' formaciones');
   byId('tarjetas').innerHTML = matching.map(party =>
     '<article class="card"><div class="party-identity">' + partyLogo(party) +
     '<span class="id">' + esc(party.id) + '</span></div><h3>' + esc(party.name) + '</h3>' +
     '<p class="muted">' + party.lists.length + (party.lists.length === 1 ? ' circunscripción' : ' circunscripciones') + '</p>' +
-    partyFields(party, 'compact') + '<a class="cta" aria-label="Ver listas de ' + esc(party.id) +
-    '" href="' + formatRoute('formacion', party.id, ...(district ? [district] : [])) + '">Ver listas</a></article>'
+    partyFields(party, 'compact') + '<div class="card-actions"><a class="action action-primary" aria-label="Ver listas de ' + esc(party.id) +
+    '" href="' + formatRoute('formacion', party.id, ...(district ? [district] : [])) + '">Ver listas</a>' +
+    programLink(party, true) + '</div></article>'
   ).join('') || '<p>No hay formaciones que coincidan con la búsqueda.</p>';
 }
 
@@ -96,8 +135,8 @@ function showParty(party, district, expanded) {
     ballotBase + ballotSlug;
   byId('detalle').innerHTML = '<a href="#inicio">Todas las formaciones</a><div class="party-identity detail-identity">' +
     partyLogo(party) + '<h1>' + esc(party.id) + '</h1></div><p>' + esc(party.name) +
-    '</p><div class="columns"><section class="panel"><h2>Datos de la formación</h2>' + partyFields(party, true) +
-    '<a class="cite" href="' + formatRoute('contacto', party.id) + '">Proponer una corrección</a></section><section class="panel" aria-labelledby="list-title"><h2 id="list-title">Lista proclamada</h2>' +
+    '</p>' + programPanel(party) + '<div class="columns"><section class="panel"><h2>Datos de la formación</h2>' + partyFields(party, true) +
+    '<a class="cite" href="' + formatRoute('contacto', party.id) + '">Hacer corrección</a></section><section class="panel" aria-labelledby="list-title"><h2 id="list-title">Lista proclamada</h2>' +
     '<label for="lista">Circunscripción</label><select id="lista">' + lists.map(item =>
     '<option' + (item === list ? ' selected' : '') + '>' + esc(item.district) + '</option>').join('') +
     '</select><p class="muted">' + esc(list.heading) + '</p>' +
@@ -198,10 +237,11 @@ function showSources() {
     '<h3>Cómo leer cada ficha</h3><p>El balance de las formaciones políticas publica el patrimonio neto, es decir, la diferencia contable entre activos y pasivos. El plan contable específico de los partidos utiliza esta partida para reflejar su situación patrimonial. Cada cifra lleva el ejercicio de referencia. Las fichas emplean los logotipos disponibles para identificar a la formación. La afiliación incluye la fecha y, cuando consta, el criterio del censo. Los importes personales son partidas de declaraciones fechadas y se muestran bajo su concepto declarado.</p>' +
     '<p>Las fechas de fundación y de inscripción describen hechos distintos. La cifra de afiliación se presenta con la fecha y la definición de cada fuente. En las coaliciones las cifras de un partido miembro solo se atribuyen a esa entidad.</p>' +
     '<p>Los inmuebles incluyen viviendas, fincas y otros bienes declarados. Las proporciones de titularidad se indican cuando constan. Los actos mercantiles se muestran con fecha y cargo. La fuente de cada acto permite comprobar si se trata de un nombramiento o un cese.</p>' +
+    '<h3>Programas electorales</h3><p>Las fichas enlazan a documentos del 29N publicados por cada formación. Los compromisos de campaña se identifican por separado. Si falta un programa, su ficha indica que está pendiente de verificar. Cada coalición requiere una fuente propia.</p>' +
     '<h3>Regla de verificación</h3><p>' + esc(evidenceRule) + '</p>' +
     '<p>La identidad electoral se acredita con la proclamación del BOE. La trayectoria y el patrimonio se documentan con registros de intereses, biografías institucionales y publicaciones identificables. Cada dato se atribuye a una persona con identidad contrastada y lleva su fuente. Las declaraciones de bienes corresponden al cargo y al periodo indicados.</p>' +
     '<p>El historial del 23J cruza nombre completo, siglas y circunscripción en ambos boletines. Una candidatura previa acredita presencia en esa lista. La antigüedad de afiliación requiere su propia fuente. Se omiten las juntas afectadas por las rectificaciones de julio de 2023 hasta verificar sus cambios.</p>' +
-    '<p>Las personas candidatas y las formaciones pueden aportar documentos o enlaces públicos en <a href="#contacto">Contacto</a>. Las aportaciones se verifican antes de incorporarlas.</p>' +
+    '<p>Las personas candidatas y las formaciones pueden aportar documentos o enlaces públicos en <a href="#contacto">Hacer corrección</a>. Las aportaciones se verifican antes de incorporarlas.</p>' +
     '<p>Datos de la XV Legislatura reutilizados de Congreso Abierto (congresoabierto.org), a partir de datos oficiales del Congreso de los Diputados. Licencia CC BY 4.0. El catálogo cruza el nombre completo y la circunscripción, y resume los inmuebles por tipo, año y participación.</p><ul>' +
     '<li>' + cite('Congreso Abierto · Exportación y licencia de los datos', 'https://congresoabierto.org/datos/') + '</li>' +
     ['convocatoria', 'boe', 'correccion', 'boe2023', 'registroIntereses', 'registro', 'cuentas', 'planContable'].map(key => '<li>' + source(key) + '</li>').join('') + '</ul><h3>Créditos de los logotipos</h3><ul>' +
@@ -241,6 +281,7 @@ byId('estadisticas').innerHTML = [[candidaturas.length, 'formaciones agrupadas']
   '<div class="stat"><strong>' + number.format(count) + '</strong><span>' + label + '</span></div>').join('');
 byId('buscar').addEventListener('input', cards);
 byId('territorio').addEventListener('change', cards);
+byId('orden').addEventListener('change', cards);
 document.querySelector('.skip').addEventListener('click', event => {
   event.preventDefault();
   byId('contenido').focus();
