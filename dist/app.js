@@ -338,7 +338,7 @@ document.querySelector('.skip').addEventListener('click', event => {
 });
 const pagesOwner = location.hostname?.match(/^([a-z0-9-]+)\.github\.io$/i)?.[1];
 const pagesProject = location.pathname?.split('/')[1];
-const issuePage = pagesOwner === '404-notfound-401-unauthorized' && location.protocol === 'https:' && /^[a-z0-9_.-]+$/i.test(pagesProject ?? '') ?
+const issuePage = pagesOwner === 'transparenciaelectoral' && location.protocol === 'https:' && pagesProject === '29n' ?
   'https://github.com/' + pagesOwner + '/' + pagesProject + '/issues/new' : '';
 byId('correccion-github').disabled = !issuePage;
 byId('correccion-github-nota').hidden = !issuePage;

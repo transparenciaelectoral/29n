@@ -49,6 +49,6 @@ La regla de verificación aparece en las fichas con campos pendientes. El histor
 
 El flujo de GitHub Actions publica solo `dist/` en GitHub Pages desde `main`. En el repositorio público, activa **Issues** y en **Settings → Pages → Build and deployment** selecciona **GitHub Actions**.
 
-En la URL de proyecto de GitHub Pages (`https://404-notfound-401-unauthorized.github.io/repositorio/`), el formulario abre un issue del repositorio con la ficha, la propuesta y la fuente ya rellenadas. La persona revisa el contenido y publica el issue desde su propia cuenta. El formulario no pide nombre ni correo de quien envía la propuesta. El issue muestra la cuenta de GitHub que lo publica. GitHub muestra el enlace definitivo tras publicar el issue.
+En la URL de proyecto de GitHub Pages (`https://transparenciaelectoral.github.io/29n/`), el formulario abre un issue del repositorio con la ficha, la propuesta y la fuente ya rellenadas. La persona revisa el contenido y publica el issue desde su propia cuenta. El formulario no pide nombre ni correo de quien envía la propuesta. El issue muestra la cuenta de GitHub que lo publica. GitHub muestra el enlace definitivo tras publicar el issue.
 
 Antes del primer commit público, usa una identidad de commit apta para publicar, por ejemplo la dirección noreply de tu cuenta de GitHub. Los créditos y las fuentes públicas se conservan en la web.
