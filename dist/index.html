@@ -17,9 +17,14 @@
   <script defer src="programas.js"></script>
   <script defer src="fundadores.js"></script>
   <script defer src="trabajos.js"></script>
+  <script defer src="evidencias-trayectorias.js"></script>
+  <script defer src="cronologia-trayectorias.js"></script>
+  <script defer src="verificar-trayectorias.js"></script>
   <script defer src="analisis.js"></script>
   <script defer src="propuestas.js"></script>
   <script defer src="ejecucion.js"></script>
+  <script defer src="seguimiento.js"></script>
+  <script defer src="seguir-propuestas.js"></script>
   <script defer src="comparar-propuestas.js"></script>
   <script defer src="casos-judiciales.js"></script>
   <script defer src="analisis-judicial.js"></script>
@@ -29,7 +34,7 @@
   <a class="skip" href="#contenido">Saltar al contenido</a>
   <header class="top"><div class="wrap bar">
     <a class="brand" href="#inicio"><span>29N</span> Quién se presenta</a>
-    <nav aria-label="Principal"><a href="#inicio">Formaciones</a><a id="nav-analisis" href="#analisis">Análisis</a><a id="nav-propuestas" href="#propuestas">Propuestas</a><a id="nav-imputaciones" href="#imputaciones">Imputaciones</a><a href="#fuentes">Fuentes</a><a href="#contacto">Hacer corrección</a></nav>
+    <nav aria-label="Principal"><a href="#inicio">Formaciones</a><a id="nav-analisis" href="#analisis">Análisis</a><a id="nav-propuestas" href="#propuestas">Propuestas</a><a id="nav-cumplimiento" href="#cumplimiento">Cumplimiento</a><a id="nav-imputaciones" href="#imputaciones">Imputaciones</a><a href="#fuentes">Fuentes</a><a href="#contacto">Hacer corrección</a></nav>
   </div></header>
   <main id="contenido" tabindex="-1">
     <section id="inicio">
@@ -92,6 +97,7 @@
       <p class="analysis-intro">Explora la formación, el trabajo y las empresas fundadas que constan en las fichas de las candidaturas al Congreso.</p>
       <div class="analysis-filters">
         <div><label for="analisis-formacion">Formación</label><select id="analisis-formacion"></select></div>
+        <div><label for="analisis-circunscripcion">Circunscripción</label><select id="analisis-circunscripcion"></select></div>
         <div><label for="analisis-lista">Puestos en la lista</label>
           <select id="analisis-lista">
             <option value="">Titulares y suplentes</option>
@@ -101,6 +107,11 @@
         </div>
       </div>
       <p id="analisis-estado" class="muted" role="status"></p>
+      <section class="panel career-evidence" aria-labelledby="trayectorias-verificadas-titulo">
+        <h2 id="trayectorias-verificadas-titulo">Qué sabemos sobre la experiencia laboral</h2>
+        <div id="trayectorias-verificadas"></div>
+        <p><a href="metodologia/verificar-evidencia-de-trayectorias/SKILL.md">Cómo se verifica cada afirmación</a></p>
+      </section>
       <div id="analisis-resultados"></div>
       <section class="panel analysis-orientation">
         <h2>Cómo se definen las formaciones</h2>
@@ -141,6 +152,25 @@
         <p>Es una selección de medidas publicadas para el 29N. Los plazos y cantidades se atribuyen a cada formación. «Pendiente» indica que falta verificar una fuente o revisar el tema. Se aplica el mismo criterio a todas las formaciones.</p>
         <p><a href="metodologia/analizar-programas-electorales/SKILL.md">Consultar los criterios y cómo actualizar el análisis</a></p>
         <p><a href="metodologia/verificar-ejecucion-de-propuestas/SKILL.md">Metodología para verificar quién puede ejecutar una medida, su coste y su plazo</a></p>
+      </section>
+    </section>
+    <section id="cumplimiento" class="wrap sources proposals" aria-labelledby="cumplimiento-titulo" hidden>
+      <h1 id="cumplimiento-titulo">Cumplimiento electoral</h1>
+      <p class="analysis-intro">Comprueba qué promesas de programas electorales anteriores se realizaron durante el mandato correspondiente y cómo se hicieron.</p>
+      <div class="panel proposal-overview">
+        <p>El indicador de cumplimiento divide las promesas acreditadas entre todas las del bloque publicado. Cada gráfico identifica la elección, el gobierno y el alcance de la revisión.</p>
+        <p>La revisión histórica es parcial. Los puntos pendientes de verificar permanecen en el total. Cada porcentaje corresponde al bloque y al mandato que se indican.</p>
+      </div>
+      <div class="proposal-filter">
+        <label for="cumplimiento-formacion">Formación</label>
+        <select id="cumplimiento-formacion"></select>
+      </div>
+      <p class="muted" id="cumplimiento-estado" role="status"></p>
+      <div class="analysis-grid" id="cumplimiento-resultados"></div>
+      <section class="panel analysis-method">
+        <h2>Cómo se calcula</h2>
+        <p>Una ley acredita su aprobación. Cuando la promesa incluye ejecutar una obra, extender un servicio o alcanzar un objetivo, hace falta acreditar ese resultado para contarla.</p>
+        <p><a href="metodologia/seguir-compromisos-electorales/SKILL.md">Criterios de verificación y actualización</a></p>
       </section>
     </section>
     <section id="imputaciones" class="wrap sources judicial" aria-labelledby="judicial-titulo" hidden>

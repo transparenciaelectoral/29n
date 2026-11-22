@@ -203,3 +203,23 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickne
 
 .judicial-related { margin-block: 1.25rem; }
 .judicial-related .judicial-status { margin-bottom: .45rem; }
+
+.career-evidence { margin-bottom: 1rem; }
+.career-evidence > p:last-child { margin: .8rem 0 0; }
+.career-breakdown { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4rem 1rem; }
+.career-claims { margin-top: .35rem; }
+.career-claims .cite, .fulfillment-card .cite { overflow-wrap: anywhere; }
+.career-chronology { margin-block: 1rem; }
+.career-chronology h3 { margin-bottom: .45rem; }
+.fulfillment-card { min-width: 0; }
+.fulfillment-card h2 { font-size: clamp(1.35rem, 4vw, 1.8rem); }
+.fulfillment-tally { margin-bottom: .3rem; }
+.fulfillment-card meter { display: block; width: 100%; height: 1.25rem; margin-bottom: .25rem; }
+.fulfillment-card meter::-webkit-meter-optimum-value { background: var(--accent); }
+.fulfillment-card meter::-moz-meter-bar { background: var(--accent); }
+.fulfillment-card .analysis-list { margin-top: .8rem; }
+.fulfillment-card .analysis-list h3 { margin-bottom: .45rem; }
+@media (min-width: 48rem) {
+  #analisis > .analysis-filters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .career-breakdown { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

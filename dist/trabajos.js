@@ -232,7 +232,7 @@ const trabajos29N = {
     ]
   },
   "CHA-IU-MS-FRENTE AMPLIO|Huesca|José Luis Parra Pascau (CHA)": {
-    "text": "Docente en el Colegio Rural Agrupado Vero Alcanadre, donde consta como coordinador bilingüe.",
+    "text": "Docente en el Colegio Rural Agrupado Vero Alcanadre, donde consta como especialista en Pedagogía Terapéutica y coordinador de tercer ciclo.",
     "areas": [
       "Docencia e investigación"
     ]
