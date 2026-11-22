@@ -15,13 +15,21 @@
   <script defer src="trayectorias.js"></script>
   <script defer src="candidaturas-previas.js"></script>
   <script defer src="programas.js"></script>
+  <script defer src="fundadores.js"></script>
+  <script defer src="trabajos.js"></script>
+  <script defer src="analisis.js"></script>
+  <script defer src="propuestas.js"></script>
+  <script defer src="ejecucion.js"></script>
+  <script defer src="comparar-propuestas.js"></script>
+  <script defer src="casos-judiciales.js"></script>
+  <script defer src="analisis-judicial.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
   <header class="top"><div class="wrap bar">
     <a class="brand" href="#inicio"><span>29N</span> Quién se presenta</a>
-    <nav aria-label="Principal"><a href="#inicio">Formaciones</a><a href="#fuentes">Fuentes</a><a href="#contacto">Hacer corrección</a></nav>
+    <nav aria-label="Principal"><a href="#inicio">Formaciones</a><a id="nav-analisis" href="#analisis">Análisis</a><a id="nav-propuestas" href="#propuestas">Propuestas</a><a id="nav-imputaciones" href="#imputaciones">Imputaciones</a><a href="#fuentes">Fuentes</a><a href="#contacto">Hacer corrección</a></nav>
   </div></header>
   <main id="contenido" tabindex="-1">
     <section id="inicio">
@@ -48,8 +56,28 @@
               <option value="name:desc">Nombre · Z a A</option>
               <option value="afiliacion:asc">Afiliación · menor a mayor</option>
               <option value="afiliacion:desc">Afiliación · mayor a menor</option>
-              <option value="capital:asc">Capital social · menor a mayor</option>
-              <option value="capital:desc">Capital social · mayor a menor</option>
+              <option value="patrimonio:asc">Patrimonio neto · menor a mayor</option>
+              <option value="patrimonio:desc">Patrimonio neto · mayor a menor</option>
+              <option value="capital:asc">Capital y fondo social · menor a mayor</option>
+              <option value="capital:desc">Capital y fondo social · mayor a menor</option>
+              <option value="financiacion:asc">Financiación documentada · menor a mayor</option>
+              <option value="financiacion:desc">Financiación documentada · mayor a menor</option>
+            </select>
+          </div>
+        </div>
+        <div class="filters directory-filters">
+          <div><label for="filtro-orientacion">Orientación declarada</label>
+            <select id="filtro-orientacion">
+              <option value="">Todas</option>
+              <option>Izquierda</option><option>Centroizquierda</option><option>Centro</option>
+              <option>Centroderecha</option><option>Derecha</option><option>Por confirmar</option>
+            </select>
+          </div>
+          <div><label for="filtro-programa">Programa del 29N</label>
+            <select id="filtro-programa">
+              <option value="">Todos</option>
+              <option value="con">Con programa verificado</option>
+              <option value="sin">Sin programa completo verificado</option>
             </select>
           </div>
         </div>
@@ -59,6 +87,109 @@
       </section>
     </section>
     <section id="detalle" class="wrap detail" hidden></section>
+    <section id="analisis" class="wrap analysis sources" aria-labelledby="analisis-titulo" hidden>
+      <h1 id="analisis-titulo">Análisis electoral</h1>
+      <p class="analysis-intro">Explora la formación, el trabajo y las empresas fundadas que constan en las fichas de las candidaturas al Congreso.</p>
+      <div class="analysis-filters">
+        <div><label for="analisis-formacion">Formación</label><select id="analisis-formacion"></select></div>
+        <div><label for="analisis-lista">Puestos en la lista</label>
+          <select id="analisis-lista">
+            <option value="">Titulares y suplentes</option>
+            <option value="names">Solo titulares</option>
+            <option value="reserves">Solo suplentes</option>
+          </select>
+        </div>
+      </div>
+      <p id="analisis-estado" class="muted" role="status"></p>
+      <div id="analisis-resultados"></div>
+      <section class="panel analysis-orientation">
+        <h2>Cómo se definen las formaciones</h2>
+        <div id="analisis-orientacion"></div>
+      </section>
+      <section class="panel analysis-method">
+        <h2>Cómo se hace el análisis</h2>
+        <p>Cada aparición en una lista proclamada cuenta como una candidatura. Los gráficos de estudios y trabajo cuentan una vez cada candidatura clasificada. Los estudios incluyen los ámbitos cursados cuando la fuente los identifica. «Varias áreas» reúne los perfiles con más de un área documentada. Las fichas pendientes quedan fuera de esos porcentajes.</p>
+        <p>La formación avanzada exige una titulación documentada. Para contar una empresa debe constar quién la fundó o cofundó. La orientación recoge autodefiniciones de cada formación y requiere una fuente propia para cada coalición.</p>
+        <ul>
+          <li><a href="metodologia/analizar-trayectorias-electorales/SKILL.md">Reglas de estudios, empleo y empresas</a></li>
+          <li><a href="metodologia/documentar-orientacion-electoral/SKILL.md">Reglas de orientación electoral</a></li>
+        </ul>
+      </section>
+    </section>
+    <section id="propuestas" class="wrap sources proposals" aria-labelledby="propuestas-titulo" hidden>
+      <h1 id="propuestas-titulo">Propuestas del 29N</h1>
+      <p class="analysis-intro">Compara qué plantea cada formación sobre los temas que te importan y consulta el documento original.</p>
+      <nav class="proposal-topics" id="propuestas-temas" aria-label="Temas de los programas"></nav>
+      <div class="proposal-filter">
+        <label for="propuestas-formacion">Formación</label>
+        <select id="propuestas-formacion"></select>
+      </div>
+      <section aria-labelledby="propuestas-tema">
+        <div class="panel proposal-overview">
+          <h2 id="propuestas-tema" tabindex="-1"></h2>
+          <p id="propuestas-pregunta"></p>
+          <p id="propuestas-cobertura" class="muted" role="status"></p>
+        </div>
+        <div id="propuestas-tarjetas" class="grid"></div>
+        <details id="propuestas-pendientes" class="panel proposal-pending" hidden>
+          <summary id="propuestas-pendientes-titulo"></summary>
+          <ul id="propuestas-pendientes-lista"></ul>
+        </details>
+      </section>
+      <section class="panel analysis-method">
+        <h2>Cómo se comparan las propuestas</h2>
+        <p>Es una selección de medidas publicadas para el 29N. Los plazos y cantidades se atribuyen a cada formación. «Pendiente» indica que falta verificar una fuente o revisar el tema. Se aplica el mismo criterio a todas las formaciones.</p>
+        <p><a href="metodologia/analizar-programas-electorales/SKILL.md">Consultar los criterios y cómo actualizar el análisis</a></p>
+        <p><a href="metodologia/verificar-ejecucion-de-propuestas/SKILL.md">Metodología para verificar quién puede ejecutar una medida, su coste y su plazo</a></p>
+      </section>
+    </section>
+    <section id="imputaciones" class="wrap sources judicial" aria-labelledby="judicial-titulo" hidden>
+      <h1 id="judicial-titulo">Imputaciones</h1>
+      <div class="panel judicial-context">
+        <p>Selección de procedimientos de interés electoral sobre corrupción, financiación de campañas y uso de fondos públicos. Abarca a las formaciones y a las personas que figuran en las listas del 29N.</p>
+        <p><strong>Rige la presunción de inocencia.</strong> Una investigación recoge hechos pendientes de esclarecer. La fecha de cada ficha indica el último acto oficial que se ha podido verificar.</p>
+      </div>
+      <nav class="proposal-topics" aria-label="Ámbito judicial">
+        <a id="judicial-formaciones" href="#imputaciones/formaciones">Por formación</a>
+        <a id="judicial-personas" href="#imputaciones/personas">Por persona</a>
+      </nav>
+      <div class="proposal-filter" id="judicial-campo-formacion">
+        <label for="judicial-formacion">Formación en el 29N</label>
+        <select id="judicial-formacion"></select>
+      </div>
+      <div class="proposal-filter" id="judicial-campo-persona" hidden>
+        <label for="judicial-persona">Candidatura con ficha documentada</label>
+        <select id="judicial-persona"></select>
+      </div>
+      <p class="muted" id="judicial-revision"></p>
+      <p class="muted" id="judicial-cobertura" role="status"></p>
+      <div class="analysis-grid judicial-charts" id="judicial-graficos">
+        <section class="panel">
+          <h2>Procedimientos por estado</h2>
+          <div id="judicial-grafico"></div>
+          <p class="muted">Cada procedimiento o pieza con resolución propia cuenta una vez por estado. Una misma causa puede tener estados distintos según la persona.</p>
+        </section>
+        <section class="panel">
+          <h2>Importes documentados</h2>
+          <div id="judicial-importes"></div>
+          <p class="muted">Cada concepto se muestra por separado. Las cifras investigadas se identifican como tales.</p>
+        </section>
+      </div>
+      <section id="judicial-certeza" aria-labelledby="judicial-fichas-titulo">
+        <h2 id="judicial-fichas-titulo">Fichas y fuentes oficiales</h2>
+        <div class="grid" id="judicial-fichas"></div>
+      </section>
+      <section id="judicial-contexto" class="judicial-related" aria-labelledby="judicial-contexto-titulo" hidden>
+        <h2 id="judicial-contexto-titulo">Contexto documentado</h2>
+        <p class="muted">Consulta los casos de antiguos cargos, los expedientes de fiscalización y las resoluciones que rechazaron abrir una causa penal. Cada ficha explica el vínculo y el alcance de la resolución.</p>
+        <div class="grid" id="judicial-contexto-fichas"></div>
+      </section>
+      <section class="panel analysis-method">
+        <h2>Cómo se verifica cada ficha</h2>
+        <p>La cobertura es parcial. La implicación documentada de una persona solo se atribuye a esa persona. Los gráficos por formación cuentan responsabilidades o actuaciones que afectan directamente a la entidad dentro del ámbito penal o civil de la selección.</p>
+        <p><a href="metodologia/verificar-procesos-judiciales/SKILL.md">Consultar la metodología y los criterios de actualización</a> · <a href="#contacto">Hacer corrección</a></p>
+      </section>
+    </section>
     <section id="fuentes" class="wrap sources" hidden></section>
     <section id="contacto" class="wrap sources" hidden>
       <h1>Hacer corrección</h1>

@@ -118,3 +118,88 @@ footer { border-top: 1px solid var(--line); color: var(--muted); }
 .ballot-box { margin-block: 1rem; padding: .85rem 1rem; border-left: 3px solid var(--accent); background: var(--paper); }
 .ballot-link { display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 750; }
 .ballot-box p { margin: .35rem 0 0; }
+
+nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: .13em; }
+.analysis h1 { margin-top: 0; }
+.analysis h2 { font-size: clamp(1.45rem, 4vw, 2rem); margin-bottom: .55rem; }
+.analysis-intro { max-width: 45rem; }
+.analysis-filters { display: grid; gap: .75rem; margin-bottom: 1rem; }
+.analysis-grid { display: grid; gap: 1rem; }
+.analysis-grid > *, .analysis-filters > * { min-width: 0; }
+.analysis-findings { background: #eaf1ea; margin-bottom: 1rem; }
+.analysis-findings p:last-child, .analysis-orientation p:last-child { margin-bottom: 0; }
+.analysis-orientation, .analysis-method { margin-top: 1rem; }
+.analysis-method ul { margin-bottom: 0; padding-left: 1.25rem; }
+.chart-layout { display: grid; align-items: center; gap: 1rem; margin-block: 1rem; }
+.analysis-donut { display: grid; place-items: center; justify-self: center; width: min(100%, 9.5rem); aspect-ratio: 1; border-radius: 50%; }
+.analysis-donut span { display: grid; place-items: center; width: 70%; aspect-ratio: 1; border-radius: 50%; background: white; font-size: 1.3rem; font-weight: 750; font-variant-numeric: tabular-nums; }
+.chart-legend, .analysis-list { list-style: none; margin: 0; padding: 0; }
+.chart-legend li { display: grid; grid-template-columns: .75rem minmax(0, 1fr) auto; gap: .5rem; align-items: baseline; border-bottom: 1px solid var(--line); padding-block: .3rem; font-size: .88rem; }
+.chart-legend strong { font-variant-numeric: tabular-nums; }
+.chart-swatch { width: .75rem; height: .75rem; border: 1px solid #18252555; border-radius: .15rem; }
+.analysis-evidence { border-top: 1px solid var(--line); margin-top: .75rem; }
+.analysis-evidence summary { min-height: 2.75rem; padding-block: .65rem; color: var(--accent); }
+.analysis-list { overflow-wrap: anywhere; }
+.analysis-list li { padding-block: .55rem; border-bottom: 1px solid var(--line); }
+.analysis-list li:last-child { border-bottom: 0; }
+.analysis-list small { display: block; color: var(--muted); }
+.analysis-list p { margin: .2rem 0 0; }
+.analysis-list .analysis-list { padding-inline-start: .75rem; }
+.analysis-programs { margin-top: 1rem; }
+@media (min-width: 29rem) {
+  .chart-layout { grid-template-columns: minmax(6rem, 9rem) minmax(0, 1fr); }
+}
+@media (min-width: 48rem) {
+  .analysis-grid, .analysis-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .analysis-orientation .chart-layout { max-width: 42rem; }
+}
+
+.proposals h1 { margin-top: 0; }
+.proposal-topics { gap: .5rem; margin-block: 1rem; }
+.proposal-topics a {
+  min-height: 2.75rem;
+  padding: .35rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: .35rem;
+  background: white;
+}
+.proposal-topics a[aria-current="page"] { color: white; background: var(--accent); border-color: var(--accent); }
+.proposal-filter { max-width: 31rem; margin-bottom: 1rem; }
+.proposal-overview { background: #eaf1ea; margin-bottom: 1rem; }
+.proposal-overview p { margin-bottom: .35rem; }
+.proposal-overview p:last-child, .proposals .analysis-method p:last-child { margin-bottom: 0; }
+.proposal-card { display: flex; flex-direction: column; min-width: 0; }
+.proposal-card h3 { margin: 0; overflow-wrap: anywhere; }
+.proposal-party-name { margin: .5rem 0 .9rem; font-size: .9rem; }
+.proposal-scope { font-size: .88rem; font-weight: 700; margin-bottom: .5rem; }
+.proposal-points { list-style: none; padding: 0; margin: 0 0 1rem; }
+.proposal-points li { padding-block: .6rem; border-top: 1px solid var(--line); }
+.proposal-points p { margin-bottom: .2rem; }
+.proposal-card .action { align-self: start; margin-top: auto; }
+.proposal-pending { margin-top: 1rem; }
+.proposal-pending ul { padding-inline-start: 1.25rem; }
+.proposal-pending li { padding-block: .25rem; }
+.program-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.program-actions:empty { display: none; }
+
+.judicial h1 { margin-top: 0; }
+.judicial h2 { font-size: clamp(1.45rem, 4vw, 2rem); }
+.judicial-context { background: #eaf1ea; }
+.judicial-context p:last-child, .judicial-charts p:last-child, .judicial-sources { margin-bottom: 0; }
+.judicial-charts { margin-bottom: 1.25rem; }
+.judicial-charts h3 { font-size: 1rem; margin: .75rem 0 0; }
+.judicial-bars, .judicial-subjects { list-style: none; padding: 0; }
+.judicial-bars li { margin-bottom: .6rem; }
+.judicial-bars li > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .25rem .75rem; }
+.judicial-bars strong { font-variant-numeric: tabular-nums; }
+.judicial-track { display: block; height: .5rem; margin-top: .25rem; background: var(--paper); border-radius: 1rem; }
+.judicial-track span { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
+.judicial-card { min-width: 0; overflow-wrap: anywhere; }
+.judicial-card h3 { margin-bottom: .3rem; }
+.judicial-subjects > li { border-top: 1px solid var(--line); padding-top: .65rem; }
+.judicial-subjects p { margin-bottom: .55rem; }
+.judicial-status { color: var(--accent); font-weight: 750; }
+.judicial-sources { margin-top: .8rem; }
+
+.judicial-related { margin-block: 1.25rem; }
+.judicial-related .judicial-status { margin-bottom: .45rem; }

@@ -76,4 +76,30 @@ const programas29N = {
     title: 'Compromisos de campaña',
     commitments: true,
   },
+  'FE DE LAS JONS': {
+    url: 'https://falange.es/wp-content/uploads/2026/11/FEDELASJONS_ProgramaElectoral_29NGenerales2026.pdf',
+    format: 'PDF',
+  },
+  SY: {
+    url: 'https://soriaya.org/programa-generales-2026/',
+  },
+  GBAI: {
+    url: 'https://geroabai.eus/files/2026/11/bases-politicas-29n-1.pdf',
+    title: 'Bases políticas del 29N',
+    format: 'PDF',
+  },
+  'NC-BC, PODEMOS, IU, SUMAR': {
+    url: 'https://www.unidadpueblocanario.org/documentos/manifiesto-upc.pdf',
+    title: 'Manifiesto electoral de Unidad del Pueblo Canario',
+    format: 'PDF',
+  },
+  'PARTIDO AUTÓNOMOS': {
+    url: 'https://www.partidoautonomos.es/wp-content/uploads/2026/11/PARTIDO-AUTONOMOS-PROGRAMA-ELECCIONES-GENERALES-2026-29N.pdf',
+    format: 'PDF',
+  },
+  FO: {
+    url: 'https://frenteobrero.es/vivienda-propone-frente-obrero/',
+    title: 'Propuestas de vivienda de campaña',
+    commitments: true,
+  },
 };

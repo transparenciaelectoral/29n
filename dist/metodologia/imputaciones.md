@@ -1,0 +1,35 @@
+
+# Verificar procesos judiciales
+
+## Alcance y fuentes
+
+Aplica el mismo criterio a todas las candidaturas proclamadas al Congreso el 29N y a las formaciones del catálogo. La selección cubre procedimientos de interés público documentados oficialmente por hechos relacionados con la corrupción pública o con la financiación ilegal de partidos. Registra la calificación que usa la resolución para cada sujeto. Las estadísticas agregadas del CGPJ ofrecen contexto sobre delitos, causas y condenas. Las fichas de esta web requieren una fuente oficial que documente el asunto concreto.
+
+Usa resoluciones públicas del órgano judicial, incluida una copia íntegra identificada como tal, y comunicaciones institucionales que identifiquen el asunto, el sujeto y la decisión. Una resolución del Parlamento Europeo sobre inmunidad acredita ese acto y las diligencias que describe, con el alcance y la fecha del documento. Comprueba órgano, fecha de la resolución y referencia como ECLI, ROJ, número de procedimiento o pieza si están publicados. Cruza la persona con la candidatura oficial mediante nombre completo y un dato público que despeje posibles homonimias. Respeta la anonimización judicial. Sustenta la atribución de un hecho a cada sujeto con su propia fuente. Un mismo asunto puede afectar a varias personas de manera distinta.
+
+## Estado procesal
+
+- **Investigación judicial.** Registra a una persona como investigada cuando una actuación judicial pública le atribuya expresamente esa condición de forma individualizada. La admisión de una denuncia, una imputación de la acusación o una citación como testigo tienen un significado propio. Utiliza el término que corresponda a la fase y mantiene la presunción de inocencia.
+- **Encausamiento y juicio.** Distingue el procesamiento u otra decisión que delimite la investigación de la apertura del juicio oral. La apertura del juicio expresa una decisión procesal anterior a la sentencia. Indica juicio pendiente o en curso únicamente cuando lo respalde la información judicial vigente.
+- **Sentencia.** Identifica quién fue condenado o absuelto, el delito o pronunciamiento y la instancia. Usa «condena firme» cuando conste la firmeza en el fallo, la ejecutoria o una fuente judicial posterior. Indica «no firme» si la fuente acredita un recurso posible o pendiente. Si la firmeza se desconoce, indícalo expresamente.
+- **Archivo y cambios posteriores.** Distingue el sobreseimiento provisional del libre. Conserva el tipo y alcance de la resolución para la persona o entidad concreta. Si un tribunal absuelve, archiva, anula o modifica una decisión previa, actualiza la ficha y el recuento. Si las fuentes son antiguas y el estado vigente no se puede comprobar, marca la situación actual pendiente. Fecha siempre la última comprobación y la fuente del último hecho verificado.
+
+La rúbrica «Imputaciones» agrupa la información de la pestaña. Dentro de cada ficha se utiliza el término procesal que corresponda. La Constitución garantiza la presunción de inocencia. Las resoluciones de cada procedimiento son la base para describir su estado. [Constitución, art. 24.2](https://www.boe.es/buscar/act.php?id=BOE-A-1978-31229#a24) · [Reforma que introduce la terminología procesal](https://www.boe.es/buscar/doc.php?id=BOE-A-2015-10725) · [Ley de Enjuiciamiento Criminal](https://www.boe.es/buscar/act.php?id=BOE-A-1882-6036)
+
+## Atribución e importes
+
+Atribuye un resultado a una formación solo cuando la fuente identifique a esa persona jurídica y su posición procesal. La candidatura de una persona es un dato electoral separado de su posición en el caso. Si el partido comparece como partícipe a título lucrativo o responsable civil, muestra esa condición y la obligación de restitución cuando conste. La responsabilidad civil tiene su propio fundamento y recuento. [Código Penal, art. 122](https://www.boe.es/buscar/act.php?id=BOE-A-1995-25444#a122)
+
+Identifica el concepto de cada cifra, su alcance y la resolución o documento que lo respalda. Distingue el valor de un contrato, la cantidad investigada, los daños probados, la multa, la fianza, el decomiso y la restitución civil. Indica si es una cuantía atribuida a la causa en conjunto o a un sujeto y si la fuente la da como estimación. Una fianza acredita una medida cautelar. Registra un importe como pendiente cuando no conste una cuantificación oficial comparable. Reserva el cero para una cifra acreditada como tal. El análisis muestra importes por asunto y concepto.
+
+La publicación de datos personales relativos a infracciones y procedimientos penales está sujeta a reglas específicas. Limita la ficha a la información de interés electoral y a las personas explícitamente identificadas en el documento oficial. Antes de difundir una versión pública, revisa el fundamento y las garantías aplicables al tratamiento de los datos identificativos. [RGPD, art. 10](https://www.boe.es/buscar/doc.php?id=DOUE-L-2016-80807#a10) · [LOPDGDD, art. 10](https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673#a10)
+
+## Documentar contexto relacionado con una formación
+
+La vista por formación puede mostrar actuaciones relativas a antiguos cargos que no figuran en el 29N y resoluciones administrativas de financiación de partidos. También puede mostrar decisiones que rechazaron abrir causa respecto de una candidatura y expedientes de fiscalización electoral. Acredita el vínculo histórico con una fuente oficial, identifica a quién afecta la decisión, distingue el resultado procesal de las alegaciones y señala la fecha de cada hito. Describe las sanciones administrativas anuladas con su desenlace y conserva el concepto original de cada cifra. Usa `contextoJudicial29N` para estas fichas. Los gráficos de procedimientos, importes y candidaturas se calculan sobre `casosJudiciales29N`.
+
+## Actualizar el catálogo
+
+En `dist/casos-judiciales.js`, actualiza `casosJudiciales29N`. Usa una clave estable por asunto o pieza judicial identificada y añade las resoluciones posteriores al mismo registro. Completa el título, el órgano y las fuentes, con sus fechas cuando consten. Actualiza `revisionJudicial29N` tras comprobar la vigencia del conjunto. En los sujetos usa la clave exacta de la candidatura del BOE o el identificador de la formación según corresponda, junto con su estado documentado. En cada importe incluye la cifra, su concepto, a quién o a qué se refiere y la fuente. Una pieza distinta requiere una identidad procesal acreditada.
+
+Comprueba el estado antes de publicar una actualización y revisa las fuentes más recientes para cada sujeto. Los gráficos cuentan asuntos distintos dentro del filtro aplicado. Una causa puede aparecer en varias fases cuando su situación difiere entre sujetos. Los recuentos expresan la cobertura del catálogo. Las fichas pendientes reflejan la ausencia de documentación verificada en esta revisión. Aplica los mismos criterios a las correcciones recibidas en «Hacer corrección». Al comprobar un cambio de estado, actualiza el registro y la visualización. Sincroniza esta guía con `dist/metodologia/imputaciones.md`.

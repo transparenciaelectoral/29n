@@ -2,6 +2,10 @@
 
 Abre `dist/index.html` en el navegador. La web es estática y funciona sin instalación. Los enlaces a las fuentes requieren conexión.
 
+## Metodologías reproducibles
+
+Cada metodología tiene un archivo estándar `SKILL.md` en `.agents/skills/<nombre>/`. Copia el archivo completo a `dist/metodologia/<nombre>/SKILL.md` después de editarlo para que la web sirva la misma versión.
+
 ## Alcance
 
 Elecciones generales de España del 29 de noviembre de 2026. El catálogo cubre el Congreso, con 534 listas proclamadas en 52 circunscripciones y 56 fichas agrupadas. La cifra de fichas depende de las equivalencias que usa el catálogo. En cada lista se conserva el rótulo oficial de su circunscripción. Se distingue entre titulares y suplentes.
@@ -11,6 +15,20 @@ Pulsa el nombre de un titular o suplente para consultar su perfil dentro de la l
 ## Programas electorales
 
 Los programas se consultan desde las tarjetas y el apartado «Qué propone» de cada ficha. Para añadir uno en `dist/programas.js`, verifica en la web de la formación que el documento corresponde al 29N y a la candidatura concreta. Usa el enlace directo, indica el formato y el idioma cuando ayuden a la lectura y marca con `commitments: true` una publicación de compromisos parciales. Las fichas sin fuente muestran «Programa del 29N pendiente de verificar».
+
+## Regenerar el análisis
+
+La pestaña «Análisis» vuelve a calcular los recuentos desde los datos locales cada vez que se abre o cambia el filtro. Para incorporar una corrección, revisa la ficha y, cuando proceda, su clasificación en `dist/trabajos.js`, `dist/fundadores.js` o `dist/analisis.js`. Las reglas se mantienen en [análisis de trayectorias](.agents/skills/analizar-trayectorias-electorales/SKILL.md) y [orientación electoral](.agents/skills/documentar-orientacion-electoral/SKILL.md). Las copias públicas están en `dist/metodologia/`.
+
+## Mantener el comparador de propuestas
+
+Cada medida de `dist/propuestas.js` enlaza a una publicación de la formación y señala la página o el apartado. El comparador cruza las medidas con el catálogo electoral cada vez que se abre un tema. La [guía de análisis de programas](.agents/skills/analizar-programas-electorales/SKILL.md) explica cómo añadir medidas y revisar la cobertura. Su copia pública se sirve en `dist/metodologia/analizar-programas-electorales/SKILL.md`.
+
+Para ampliar cada medida con competencia, coste, financiación y plazo, consulta la [guía de verificación de ejecución](.agents/skills/verificar-ejecucion-de-propuestas/SKILL.md).
+
+## Revisar Imputaciones
+
+La pestaña cruza procedimientos documentados en `dist/casos-judiciales.js` con las candidaturas publicadas. Cada ficha lleva su fecha, el estado procesal y la fuente pública oficial. La [guía de verificación judicial](.agents/skills/verificar-procesos-judiciales/SKILL.md) describe cómo actualizar las fichas y los importes.
 
 ## Actualizar el catálogo electoral
 
